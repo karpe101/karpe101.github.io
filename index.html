@@ -144,10 +144,10 @@
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
 <!-- Crypto Price Ticker Script -->
-<script src="https://widgets.coingecko.com/coingecko-coin-ticker-widget.js"></script>
+<script id="coin-gecko-ticker-script" src="https://widgets.coingecko.com/coingecko-coin-ticker-widget.js"></script>
 <script>
     // Ensure the script is loaded before initializing
-    document.getElementById('coin-gecko-ticker-script').onload = function() {
+    document.addEventListener('DOMContentLoaded', function() {
         CoinGeckoCoinTicker.init({
             coin: ['bitcoin', 'ethereum', 'binancecoin', 'solana', 'cardano', 'ripple', 'polkadot', 'dogecoin', 'avalanche', 'chainlink'],
             localization: 'en',
@@ -155,9 +155,10 @@
             priceColor: '#000000',
             fontColor: '#000000'
         });
-    };
+    });
 </script>
 </body>
 </html>
+>
 
 
