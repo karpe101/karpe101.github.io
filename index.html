@@ -14,7 +14,7 @@
 	<!-- Crypto Price Ticker Styles -->
 	<style>
 		#crypto-ticker {
-			background-color: #f4f4f4;
+			background-color: transparent; /* Set to transparent */
 			padding: 10px;
 			text-align: center;
 		}
@@ -23,6 +23,12 @@
 			margin: 0 10px;
 			font-size: 16px;
 		}
+        .gain {
+            color: green;
+        }
+        .loss {
+            color: red;
+        }
 	</style>
 </head>
 <body class="is-preload">
@@ -98,15 +104,15 @@
 		<!-- Contact -->
 		<article id="contact">
 			<h2 class="major">Contact</h2>
-			<form method="post" action="#">
+			<form method="post" action="mailto:ben.karpel@outlook.com">
 				<div class="fields">
 					<div class="field half">
 						<label for="name">Name</label>
 						<input type="text" name="name" id="name" />
 					</div>
 					<div class="field half">
-						<label for="Ben.Karpel@outlook.com">Email</label>
-						<input type="text" name="Ben.Karpel@outlook.com" id="email" />
+						<label for="email">Email</label>
+						<input type="email" name="email" id="email" />
 					</div>
 					<div class="field">
 						<label for="message">Message</label>
@@ -149,19 +155,31 @@
 	fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana,cardano,ripple,polkadot,dogecoin,avalanche,chainlink&vs_currencies=usd')
 		.then(response => response.json())
 		.then(data => {
-			// Update prices
-			document.getElementById('bitcoin-price').innerText = 'Bitcoin: $' + data.bitcoin.usd;
-			document.getElementById('ethereum-price').innerText = 'Ethereum: $' + data.ethereum.usd;
-			document.getElementById('binancecoin-price').innerText = 'Binance Coin: $' + data.binancecoin.usd;
-			document.getElementById('solana-price').innerText = 'Solana: $' + data.solana.usd;
-			document.getElementById('cardano-price').innerText = 'Cardano: $' + data.cardano.usd;
-			document.getElementById('ripple-price').innerText = 'Ripple: $' + data.ripple.usd;
-			document.getElementById('polkadot-price').innerText = 'Polkadot: $' + data.polkadot.usd;
-			document.getElementById('dogecoin-price').innerText = 'Dogecoin: $' + data.dogecoin.usd;
-			document.getElementById('avalanche-price').innerText = 'Avalanche: $' + data.avalanche.usd;
-			document.getElementById('chainlink-price').innerText = 'Chainlink: $' + data.chainlink.usd;
+			// Update prices and daily percent gain/loss
+			updatePrice('bitcoin-price', data.bitcoin.usd);
+			updatePrice('ethereum-price', data.ethereum.usd);
+			updatePrice('binancecoin-price', data.binancecoin.usd);
+			updatePrice('solana-price', data.solana.usd);
+			updatePrice('cardano-price', data.cardano.usd);
+			updatePrice('ripple-price', data.ripple.usd);
+			updatePrice('polkadot-price', data.polkadot.usd);
+			updatePrice('dogecoin-price', data.dogecoin.usd);
+			updatePrice('avalanche-price', data.avalanche.usd);
+			updatePrice('chainlink-price', data.chainlink.usd);
 		})
 		.catch(error => console.error('Error fetching cryptocurrency prices:', error));
+
+function updatePrice(elementId, price) {
+    const element = document.getElementById(elementId);
+    const oldPrice = parseFloat(element.innerText.split('$')[1]);
+    const percentChange = ((price - oldPrice) / oldPrice) * 100;
+    element.innerText = `${element.innerText} (${percentChange.toFixed(2)}%)`;
+    if (percentChange > 0) {
+        element.classList.add('gain');
+    } else {
+        element.classList.add('loss');
+    }
+}
 </script>
 
 </body>
