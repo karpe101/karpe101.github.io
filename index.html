@@ -152,7 +152,7 @@
 <!-- Crypto Price Ticker Script -->
 <script>
 	// Fetch data from CoinGecko API
-	fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana,cardano,ripple,polkadot,dogecoin,avalanche,chainlink&vs_currencies=usd')
+	fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana,cardano,ripple,polkadot,dogecoin,avalanche,chainlink&vs_currencies=usd&include_24hr_change=true')
 		.then(response => response.json())
 		.then(data => {
 			// Update prices and daily percent gain/loss
@@ -171,9 +171,11 @@
 
 function updatePrice(elementId, coinName, price, change) {
     const element = document.getElementById(elementId);
-    const percentChange = parseFloat(change);
-    element.innerHTML = `${coinName}: $${price.toFixed(2)} (${percentChange.toFixed(2)}%)`;
-    if (!isNaN(percentChange)) {
+    if (isNaN(change)) {
+        element.innerText = `${coinName}: $${price.toFixed(2)} (Data not available)`;
+    } else {
+        const percentChange = parseFloat(change);
+        element.innerHTML = `${coinName}: $${price.toFixed(2)} (${percentChange.toFixed(2)}%)`;
         if (percentChange > 0) {
             element.classList.add('gain');
         } else {
@@ -185,6 +187,7 @@ function updatePrice(elementId, coinName, price, change) {
 
 </body>
 </html>
+
 
 
 
