@@ -15,15 +15,46 @@
 	<body class="is-preload">
 
 		<!-- Wrapper -->
-			<div id="wrapper">
+<div id="wrapper">
 
-				<!-- Header -->
-					<header id="header">
-						<div class="image">
- <span class="image main"><img src="images/bitcoinlogo.JPG" alt="Bitcoin Image"style="width: 200px; height: auto;">
-</span>
+    <!-- Header -->
+    <header id="header">
+        <div class="image">
+            <span class="image main">
+                <!-- Display the Bitcoin logo image -->
+                <img src="images/bitcoinlogo.JPG" alt="Bitcoin Image" style="width: 200px; height: auto;">
+            </span>
+        </div>
+
+        <!-- Cryptocurrency Price Ticker -->
+        <div id="ticker">
+            <!-- Placeholder for cryptocurrency prices -->
+        </div>
+    </header>
 </div>
-<div class="content">
+
+<!-- JavaScript for fetching and updating cryptocurrency prices -->
+<script>
+    const apiUrl = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd';
+    const ticker = document.getElementById('ticker');
+
+    function fetchCryptoPrices() {
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const bitcoinPrice = data.bitcoin.usd;
+                const ethereumPrice = data.ethereum.usd;
+                // Update the ticker with the latest cryptocurrency prices
+                ticker.innerHTML = `Bitcoin Price: $${bitcoinPrice} | Ethereum Price: $${ethereumPrice}`;
+            })
+            .catch(error => console.error('Error fetching crypto prices:', error));
+    }
+
+    // Fetch prices initially and then refresh every 30 seconds
+    fetchCryptoPrices();
+    setInterval(fetchCryptoPrices, 30000);
+</script>
+
 							<div class="inner">
 								<h1>Benjamin Karpel</h1>
 								<p>BlockChain Security Analyst<br>Crypto Currency Enthusiast<a href="https://html5up.net"></a><br />
