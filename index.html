@@ -39,16 +39,16 @@
 	<!-- Crypto Price Ticker -->
 	<div id="crypto-ticker">
 		<h2>Cryptocurrency Prices</h2>
-		<div class="crypto-item" id="bitcoin-price"></div>
-		<div class="crypto-item" id="ethereum-price"></div>
-		<div class="crypto-item" id="binancecoin-price"></div>
-		<div class="crypto-item" id="solana-price"></div>
-		<div class="crypto-item" id="cardano-price"></div>
-		<div class="crypto-item" id="ripple-price"></div>
-		<div class="crypto-item" id="polkadot-price"></div>
-		<div class="crypto-item" id="dogecoin-price"></div>
-		<div class="crypto-item" id="avalanche-price"></div>
-		<div class="crypto-item" id="chainlink-price"></div>
+		<div class="crypto-item" id="bitcoin-price">Bitcoin: </div>
+		<div class="crypto-item" id="ethereum-price">Ethereum: </div>
+		<div class="crypto-item" id="binancecoin-price">Binance Coin: </div>
+		<div class="crypto-item" id="solana-price">Solana: </div>
+		<div class="crypto-item" id="cardano-price">Cardano: </div>
+		<div class="crypto-item" id="ripple-price">Ripple: </div>
+		<div class="crypto-item" id="polkadot-price">Polkadot: </div>
+		<div class="crypto-item" id="dogecoin-price">Dogecoin: </div>
+		<div class="crypto-item" id="avalanche-price">Avalanche: </div>
+		<div class="crypto-item" id="chainlink-price">Chainlink: </div>
 	</div>
 
 	<!-- Header -->
@@ -156,24 +156,24 @@
 		.then(response => response.json())
 		.then(data => {
 			// Update prices and daily percent gain/loss
-			updatePrice('bitcoin-price', data.bitcoin.usd);
-			updatePrice('ethereum-price', data.ethereum.usd);
-			updatePrice('binancecoin-price', data.binancecoin.usd);
-			updatePrice('solana-price', data.solana.usd);
-			updatePrice('cardano-price', data.cardano.usd);
-			updatePrice('ripple-price', data.ripple.usd);
-			updatePrice('polkadot-price', data.polkadot.usd);
-			updatePrice('dogecoin-price', data.dogecoin.usd);
-			updatePrice('avalanche-price', data.avalanche.usd);
-			updatePrice('chainlink-price', data.chainlink.usd);
+			updatePrice('bitcoin-price', 'Bitcoin', data.bitcoin.usd);
+			updatePrice('ethereum-price', 'Ethereum', data.ethereum.usd);
+			updatePrice('binancecoin-price', 'Binance Coin', data.binancecoin.usd);
+			updatePrice('solana-price', 'Solana', data.solana.usd);
+			updatePrice('cardano-price', 'Cardano', data.cardano.usd);
+			updatePrice('ripple-price', 'Ripple', data.ripple.usd);
+			updatePrice('polkadot-price', 'Polkadot', data.polkadot.usd);
+			updatePrice('dogecoin-price', 'Dogecoin', data.dogecoin.usd);
+			updatePrice('avalanche-price', 'Avalanche', data.avalanche.usd);
+			updatePrice('chainlink-price', 'Chainlink', data.chainlink.usd);
 		})
 		.catch(error => console.error('Error fetching cryptocurrency prices:', error));
 
-function updatePrice(elementId, price) {
+function updatePrice(elementId, coinName, price) {
     const element = document.getElementById(elementId);
-    const oldPrice = parseFloat(element.innerText.split(' ')[2]); // Extracting old price
+    const oldPrice = parseFloat(element.innerText.split('$')[1]); // Extracting old price
     const percentChange = ((price - oldPrice) / oldPrice) * 100;
-    element.innerHTML = `Current Price: $${price.toFixed(2)} (${percentChange.toFixed(2)}%)`;
+    element.innerHTML = `${coinName}: Current Price: $${price.toFixed(2)} (${percentChange.toFixed(2)}%)`;
     if (!isNaN(percentChange)) {
         if (percentChange > 0) {
             element.classList.add('gain');
