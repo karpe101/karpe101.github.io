@@ -179,7 +179,7 @@
             element.innerHTML = `<strong>${coinName}</strong>: $${price.toFixed(2)} (${percentChange.toFixed(2)}%)`;
             if (percentChange > 0) {
                 element.classList.add('gain');
-            } else {
+            } else if (percentChange < 0) {
                 element.classList.add('loss');
             }
         }
@@ -188,6 +188,5 @@
 
 </body>
 </html>
-
 
 
