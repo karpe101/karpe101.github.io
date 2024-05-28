@@ -171,20 +171,12 @@
 
 function updatePrice(elementId, coinName, price) {
     const element = document.getElementById(elementId);
-    const oldPrice = parseFloat(element.innerText.split('$')[1]); // Extracting old price
-    const percentChange = ((price - oldPrice) / oldPrice) * 100;
-    element.innerHTML = `${coinName}: Current Price: $${price.toFixed(2)} (${percentChange.toFixed(2)}%)`;
-    if (!isNaN(percentChange)) {
-        if (percentChange > 0) {
-            element.classList.add('gain');
-        } else {
-            element.classList.add('loss');
-        }
-    }
+    element.innerText = `${coinName}: $${price.toFixed(2)}`;
 }
 </script>
 
 </body>
 </html>
+
 
 
