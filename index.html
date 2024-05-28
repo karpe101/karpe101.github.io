@@ -156,22 +156,30 @@
 		.then(response => response.json())
 		.then(data => {
 			// Update prices and daily percent gain/loss
-			updatePrice('bitcoin-price', 'Bitcoin', data.bitcoin.usd);
-			updatePrice('ethereum-price', 'Ethereum', data.ethereum.usd);
-			updatePrice('binancecoin-price', 'Binance Coin', data.binancecoin.usd);
-			updatePrice('solana-price', 'Solana', data.solana.usd);
-			updatePrice('cardano-price', 'Cardano', data.cardano.usd);
-			updatePrice('ripple-price', 'Ripple', data.ripple.usd);
-			updatePrice('polkadot-price', 'Polkadot', data.polkadot.usd);
-			updatePrice('dogecoin-price', 'Dogecoin', data.dogecoin.usd);
-			updatePrice('avalanche-price', 'Avalanche', data.avalanche.usd);
-			updatePrice('chainlink-price', 'Chainlink', data.chainlink.usd);
+			updatePrice('bitcoin-price', 'Bitcoin', data.bitcoin.usd, data.bitcoin.usd_24h_change);
+			updatePrice('ethereum-price', 'Ethereum', data.ethereum.usd, data.ethereum.usd_24h_change);
+			updatePrice('binancecoin-price', 'Binance Coin', data.binancecoin.usd, data.binancecoin.usd_24h_change);
+			updatePrice('solana-price', 'Solana', data.solana.usd, data.solana.usd_24h_change);
+			updatePrice('cardano-price', 'Cardano', data.cardano.usd, data.cardano.usd_24h_change);
+			updatePrice('ripple-price', 'Ripple', data.ripple.usd, data.ripple.usd_24h_change);
+			updatePrice('polkadot-price', 'Polkadot', data.polkadot.usd, data.polkadot.usd_24h_change);
+			updatePrice('dogecoin-price', 'Dogecoin', data.dogecoin.usd, data.dogecoin.usd_24h_change);
+			updatePrice('avalanche-price', 'Avalanche', data.avalanche.usd, data.avalanche.usd_24h_change);
+			updatePrice('chainlink-price', 'Chainlink', data.chainlink.usd, data.chainlink.usd_24h_change);
 		})
 		.catch(error => console.error('Error fetching cryptocurrency prices:', error));
 
-function updatePrice(elementId, coinName, price) {
+function updatePrice(elementId, coinName, price, change) {
     const element = document.getElementById(elementId);
-    element.innerText = `${coinName}: $${price.toFixed(2)}`;
+    const percentChange = parseFloat(change);
+    element.innerHTML = `${coinName}: $${price.toFixed(2)} (${percentChange.toFixed(2)}%)`;
+    if (!isNaN(percentChange)) {
+        if (percentChange > 0) {
+            element.classList.add('gain');
+        } else {
+            element.classList.add('loss');
+        }
+    }
 }
 </script>
 
