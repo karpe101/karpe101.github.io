@@ -173,17 +173,18 @@ function updatePrice(elementId, price) {
     const element = document.getElementById(elementId);
     const oldPrice = parseFloat(element.innerText.split('$')[1]);
     const percentChange = ((price - oldPrice) / oldPrice) * 100;
-    element.innerText = `${element.innerText} (${percentChange.toFixed(2)}%)`;
-    if (percentChange > 0) {
-        element.classList.add('gain');
-    } else {
-        element.classList.add('loss');
+    element.innerText = `Current Price: $${price.toFixed(2)} (${percentChange.toFixed(2)}%)`;
+    if (!isNaN(percentChange)) {
+        if (percentChange > 0) {
+            element.classList.add('gain');
+        } else {
+            element.classList.add('loss');
+        }
     }
 }
 </script>
 
 </body>
 </html>
-
 
 
