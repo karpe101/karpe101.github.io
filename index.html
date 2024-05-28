@@ -21,7 +21,8 @@
 		.crypto-item {
 			display: inline-block;
 			margin: 0 10px;
-			font-size: 16px;
+			font-size: 18px; /* Increased font size */
+			font-weight: bold; /* Bold text */
 		}
         .gain {
             color: green;
@@ -175,7 +176,7 @@ function updatePrice(elementId, coinName, price, change) {
         element.innerText = `${coinName}: $${price.toFixed(2)} (Data not available)`;
     } else {
         const percentChange = parseFloat(change);
-        element.innerHTML = `${coinName}: $${price.toFixed(2)} (${percentChange.toFixed(2)}%)`;
+        element.innerHTML = `<strong>${coinName}</strong>: $${price.toFixed(2)} (${percentChange.toFixed(2)}%)`;
         if (percentChange > 0) {
             element.classList.add('gain');
         } else {
@@ -187,7 +188,6 @@ function updatePrice(elementId, coinName, price, change) {
 
 </body>
 </html>
-
 
 
 
