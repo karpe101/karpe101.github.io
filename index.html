@@ -11,50 +11,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	<!-- Crypto Price Ticker Styles -->
-	<style>
-		#crypto-ticker {
-			background-color: #282a36; /* Change to match your homepage background color */
-			padding: 10px;
-			text-align: center;
-		}
-		.crypto-item {
-			display: inline-block;
-			margin: 0 10px;
-			color: white; /* Change text color */
-			font-size: 18px; /* Increase font size */
-			font-weight: bold; /* Add font weight */
-		}
-		.gain {
-			color: limegreen;
-		}
-		.loss {
-			color: red;
-		}
-		.no-change {
-			color: white;
-		}
-	</style>
 </head>
 <body class="is-preload">
 
 <!-- Wrapper -->
 <div id="wrapper">
-
-	<!-- Crypto Price Ticker -->
-	<div id="crypto-ticker">
-		<h2>Cryptocurrency Prices</h2>
-		<div class="crypto-item" id="bitcoin-price"></div>
-		<div class="crypto-item" id="ethereum-price"></div>
-		<div class="crypto-item" id="binancecoin-price"></div>
-		<div class="crypto-item" id="solana-price"></div>
-		<div class="crypto-item" id="cardano-price"></div>
-		<div class="crypto-item" id="ripple-price"></div>
-		<div class="crypto-item" id="polkadot-price"></div>
-		<div class="crypto-item" id="dogecoin-price"></div>
-		<div class="crypto-item" id="avalanche-price"></div>
-		<div class="crypto-item" id="chainlink-price"></div>
-	</div>
 
 	<!-- Header -->
 	<header id="header">
@@ -84,7 +45,7 @@
 		<!-- Intro -->
 		<article id="intro">
 			<h2 class="major">Intro</h2>
-			<span class="image main"><img src=BlockChain.JPG alt="" /></span>
+			<span class="image main"><img src="BlockChain.JPG" alt="" /></span>
 			<p>My journey began in the world of Electronic Data Interchange (EDI), where I honed my skills in managing electronic data flows with precision and security. Over three years of experience in EDI has equipped me with a keen eye for data management and security, laying a robust foundation for my journey into the exciting realm of blockchain.
 				My Journey:
 				However, my fascination with the financial sector, particularly cryptocurrencies, sparked a curiosity that led me to explore the transformative power of blockchain technology.
@@ -154,43 +115,6 @@
 <script src="assets/js/breakpoints.min.js"></script>
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
-<!-- Crypto Price Ticker Script -->
-<script>
-    // Fetch data from CoinGecko API
-    fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana,cardano,ripple,polkadot,dogecoin,avalanche,chainlink&vs_currencies=usd&include_24hr_change=true')
-        .then(response => response.json())
-        .then(data => {
-            // Update prices and daily percent gain/loss
-            updatePrice('bitcoin-price', 'Bitcoin', data.bitcoin.usd, data.bitcoin.usd_24h_change);
-            updatePrice('ethereum-price', 'Ethereum', data.ethereum.usd, data.ethereum.usd_24h_change);
-            updatePrice('binancecoin-price', 'Binance Coin', data.binancecoin.usd, data.binancecoin.usd_24h_change);
-            updatePrice('solana-price', 'Solana', data.solana.usd, data.solana.usd_24h_change);
-            updatePrice('cardano-price', 'Cardano', data.cardano.usd, data.cardano.usd_24h_change);
-            updatePrice('ripple-price', 'Ripple', data.ripple.usd, data.ripple.usd_24h_change);
-            updatePrice('polkadot-price', 'Polkadot', data.polkadot.usd, data.polkadot.usd_24h_change);
-            updatePrice('dogecoin-price', 'Dogecoin', data.dogecoin.usd, data.dogecoin.usd_24h_change);
-            updatePrice('avalanche-price', 'Avalanche', data.avalanche.usd, data.avalanche.usd_24h_change);
-            updatePrice('chainlink-price', 'Chainlink', data.chainlink.usd, data.chainlink.usd_24h_change);
-        })
-        .catch(error => console.error('Error fetching cryptocurrency prices:', error));
-
-    function updatePrice(elementId, coinName, price, change) {
-        const element = document.getElementById(elementId);
-        if (change === null || isNaN(change)) {
-            element.innerText = `${coinName}: $${price.toFixed(2)} (Data not available)`;
-        } else {
-            const percentChange = parseFloat(change);
-            element.innerHTML = `<strong>${coinName}</strong>: $${price.toFixed(2)} (${percentChange.toFixed(2)}%)`;
-            if (percentChange > 0) {
-                element.classList.add('gain');
-            } else if (percentChange < 0) {
-                element.classList.add('loss');
-            } else {
-                element.classList.add('no-change');
-            }
-        }
-    }
-</script>
 
 </body>
 </html>
